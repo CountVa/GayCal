@@ -47,8 +47,28 @@ class _nameState extends State<GMSPage> {
                         variable_name, "Введите минуты:")),
                 Container(
                     margin: const EdgeInsets.all(20),
-                    child: _getTextField(context, _textcontroller3,
-                        variable_name, "Введите секунды:")),
+                  child: TextField(
+                    textInputAction: TextInputAction.done,
+                    controller: _textcontroller3,
+                    onSubmitted: (value) {
+                      try {
+                        variable_name = double.parse(_textcontroller3.text);
+                        setState(() {
+                          double Xa = _getData(context, _textcontroller1);
+                          double Ya = _getData(context, _textcontroller2);
+                          double Xb = _getData(context, _textcontroller3);
+                          res = GeoMath.toDeg(Xa, Ya, Xb).toStringAsFixed(2);
+                        });
+                      } catch (e) {
+                        print("Возникла ошибка $e");
+                      }
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Введите секунды:",
+                        border: OutlineInputBorder()),
+                    keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                  )),
                 Container(
                     margin: const EdgeInsets.all(20),
                     child: TextButton(
